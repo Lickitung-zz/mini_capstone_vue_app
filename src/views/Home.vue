@@ -25,6 +25,8 @@
         <p>Update Description: <input type="text" v-model="product.description"></p>
         <p>Update Image: <input type="text" v-model="product.image_url"></p>
         <button v-on:click="updateProduct(product)">Update Product</button>
+        <br>
+        <button v-on:click="deleteProduct(product)">Delete Product</button>
       </div>
       <hr>
     </div>
@@ -130,6 +132,14 @@ export default {
       axios.patch("/api/products/" + theProduct.id, params).then(response => {
         console.log(response);
         theProduct = response.data;
+      });
+    },
+    deleteProduct: function(theProduct) {
+      console.log("deleting product...");
+      axios.delete("/api/products/" + theProduct.id).then(response => {
+        console.log(response);
+        var index = this.products.indexOf(theProduct);
+        this.products.splice(index, 1);
       });
     }
   }
