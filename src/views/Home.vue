@@ -10,10 +10,23 @@
     <hr>
     <div v-for="product in products">
       <p><div id="product">Name: </div>{{ product.name }}</p>
-      <p><div id="product">Price: </div>${{ product.price }}</p>
-      <p><div id="product">Description: </div>{{ product.description }}</p>
+      <!-- <p><div id="product">Price: </div>${{ product.price }}</p>
+      <p><div id="product">Description: </div>{{ product.description }}</p> -->
       <p><img v-bind:src="product.image_url"></p>
-      <div id="hr"><hr></div>
+  
+      <button v-on:click="toggleProduct(product)">Show more info</button>
+      <div v-if="product == currentProduct">
+        <p><div id="product">Name: </div>{{ product.name }}</p>
+        <p><div id="product">Price: </div>${{ product.price }}</p>
+        <p><div id="product">Description: </div>{{ product.description }}</p>
+        <br>
+        <p>Update Name: <input type="text" v-model="product.name"></p>
+        <p>Update Price: <input type="text" v-model="product.price"></p>
+        <p>Update Description: <input type="text" v-model="product.description"></p>
+        <p>Update Image: <input type="text" v-model="product.image_url"></p>
+        <button v-on:click="updateProduct(product)">Update Product</button>
+      </div>
+      <hr>
     </div>
   </div>
 </template>
@@ -74,7 +87,8 @@ export default {
       newProductName: "",
       newProductPrice: "",
       newProductDescription: "",
-      newProductImage: ""
+      newProductImage: "",
+      currentProduct: {}
     };
   },
   created: function() {
@@ -93,6 +107,29 @@ export default {
       console.log('creating product');
       axios.post("/api/products", params).then(response => {
         console.log(response);
+      });
+    },
+    toggleProduct: function(theProduct) {
+      if (this.currentProduct === theProduct) {
+        this.currentProduct = {};
+      } else {
+        this.currentProduct = theProduct;
+      }
+      console.log('toggling info...');
+    },
+    updateProduct: function(theProduct) {
+      console.log(theProduct);
+      console.log('updating the recipe...');
+      var params = {
+        name: theProduct.name,
+        price: theProduct.price,
+        description: theProduct.description,
+        image_url: theProduct.image_url
+      };
+
+      axios.patch("/api/products/" + theProduct.id, params).then(response => {
+        console.log(response);
+        theProduct = response.data;
       });
     }
   }
