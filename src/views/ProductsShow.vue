@@ -4,6 +4,7 @@
     <p>Description: {{ product.description }}</p>
     <p>Price: {{ product.price }}</p>
     <p><img v-bind:src="product.image_url"></p>
+    <router-link v-bind:to="'/products/edit/' + product.id">Edit this product</router-link>
   </div>
 </template>
 

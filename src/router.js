@@ -9,6 +9,11 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
+      path: "/products/edit/:id",
+      name: "editProduct",
+      component: () => import('./views/ProductsEdit.vue')
+    },
+    {
       path: '/',
       name: 'home',
       component: Home
