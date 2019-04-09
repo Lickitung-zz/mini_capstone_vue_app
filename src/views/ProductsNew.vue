@@ -1,12 +1,17 @@
 <template>
-  <div class="test">
-    <p>Name <input type=text v-model="newProductName"></p>
-    <p>Price <input type=text v-model="newProductPrice"></p>
-    <p>Description <input type=text v-model="newProductDescription"></p>
-    <p>Image Url <input type=text v-model="newProductImage"></p>
-    <button v-on:click="createProduct()">Create Product</button>
-  </div>
 
+  <div class="root">
+    <div v-for="error in errors">
+      {{ error }}
+    </div>
+    <form v-on:submit.prevent="createProduct()">
+      <p>Name <input type=text v-model="newProductName"></p>
+      <p>Price <input type=text v-model="newProductPrice"></p>
+      <p>Description <input type=text v-model="newProductDescription"></p>
+      <p>Image Url <input type=text v-model="newProductImage"></p>
+      <button v-on:click="createProduct()">Create Product</button>
+    </form>
+  </div>
 </template>
 
 <script>
@@ -20,7 +25,8 @@ export default {
       newProductPrice: "",
       newProductDescription: "",
       newProductImage: "",
-      currentProduct: {}
+      currentProduct: {},
+      errors: []
     };
   },
   created: function() {
@@ -39,15 +45,12 @@ export default {
       console.log('creating product');
       axios.post("/api/products", params).then(response => {
         console.log(response);
+        this.$router.push("/");
+      }).catch(error => {
+        console.log("this isn't working.");
+        console.log(error.response.data.errors);
+        this.error = error.response.data.errors;
       });
-    },
-    toggleProduct: function(theProduct) {
-      if (this.currentProduct === theProduct) {
-        this.currentProduct = {};
-      } else {
-        this.currentProduct = theProduct;
-      }
-      console.log('toggling info...');
     },
     updateProduct: function(theProduct) {
       console.log(theProduct);
@@ -64,14 +67,6 @@ export default {
         theProduct = response.data;
       });
     },
-    deleteProduct: function(theProduct) {
-      console.log("deleting product...");
-      axios.delete("/api/products/" + theProduct.id).then(response => {
-        console.log(response);
-        var index = this.products.indexOf(theProduct);
-        this.products.splice(index, 1);
-      });
-    }
   }
 };
 </script>

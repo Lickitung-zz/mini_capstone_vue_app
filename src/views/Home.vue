@@ -6,22 +6,8 @@
       <p><div id="product">Name: </div>{{ product.name }}</p>
       <!-- <p><div id="product">Price: </div>${{ product.price }}</p>
       <p><div id="product">Description: </div>{{ product.description }}</p> -->
-      <p><img v-bind:src="product.image_url"></p>
-  
-      <button v-on:click="toggleProduct(product)">Show more info</button>
-      <div v-if="product == currentProduct">
-        <p><div id="product">Name: </div>{{ product.name }}</p>
-        <p><div id="product">Price: </div>${{ product.price }}</p>
-        <p><div id="product">Description: </div>{{ product.description }}</p>
-        <br>
-        <p>Update Name: <input type="text" v-model="product.name"></p>
-        <p>Update Price: <input type="text" v-model="product.price"></p>
-        <p>Update Description: <input type="text" v-model="product.description"></p>
-        <p>Update Image: <input type="text" v-model="product.image_url"></p>
-        <button v-on:click="updateProduct(product)">Update Product</button>
-        <br>
-        <button v-on:click="deleteProduct(product)">Delete Product</button>
-      </div>
+     <!--  <p><img v-bind:src="product.image_url"></p> -->
+      <router-link v-bind:to="'/products/' + product.id">See more info</router-link>
       <hr>
     </div>
   </div>

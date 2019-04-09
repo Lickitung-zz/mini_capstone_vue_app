@@ -22,9 +22,14 @@ export default new Router({
       component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
     },
     {
-      path: '/createProduct',
+      path: '/products/new',
       name: 'createProduct',
-      component: () => import('./views/createProduct.vue')
+      component: () => import('./views/ProductsNew.vue')
+    },
+    {
+      path: "/products/:id",
+      name: "showProduct",
+      component: () => import('./views/ProductsShow.vue')
     }
   ]
 })
