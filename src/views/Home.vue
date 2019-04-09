@@ -2,12 +2,6 @@
   <div class="home">
     <h1>{{ message }}</h1>
     <!-- <h1>name: {{ products }}</h1> -->
-    <p>Name <input type=text v-model="newProductName"></input></p>
-    <p>Price <input type=text v-model="newProductPrice"></input></p>
-    <p>Description <input type=text v-model="newProductDescription"></input></p>
-    <p>Image Url <input type=text v-model="newProductImage"></input></p>
-    <button v-on:click="createProduct()">Create Product</button>
-    <hr>
     <div v-for="product in products">
       <p><div id="product">Name: </div>{{ product.name }}</p>
       <!-- <p><div id="product">Price: </div>${{ product.price }}</p>
@@ -34,7 +28,7 @@
 </template>
 
 <style>
-  .home {
+/*  .home {
     background: linear-gradient(124deg, #ff2400, #e81d1d, #e8b71d, #e3e81d, #1de840, #1ddde8, #2b1de8, #dd00f3, #dd00f3);
       background-size: 1800% 1800%;
 
@@ -75,7 +69,7 @@
 
   .home img {
     width: 700px;
-  }
+  }*/
 </style>
 
 <script>
@@ -86,10 +80,6 @@ export default {
     return {
       message: "Welcome to Vue.js!",
       products: [],
-      newProductName: "",
-      newProductPrice: "",
-      newProductDescription: "",
-      newProductImage: "",
       currentProduct: {}
     };
   },
