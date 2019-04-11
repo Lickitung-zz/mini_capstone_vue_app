@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="root">
     <h1>{{ message }}</h1>
     <!-- <h1>name: {{ products }}</h1> -->
     <div v-for="product in products">
